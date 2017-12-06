@@ -156,7 +156,7 @@ class Access {
 
 		if (empty($this->id)) {
 			$args['post_type'] = Access::$MACHINE_NAME;
-			$args['post_status'] = 'public';
+			$args['post_status'] = 'publish';
 		} else {
 			$args['ID'] = $this->id;
 		}
