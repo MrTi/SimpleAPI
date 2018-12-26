@@ -1,13 +1,16 @@
 {
-    "config": {
-        "vendor-dir": "vendor"
-    },
-    "autoload": {
-        "psr-4": {
-            "Timon\\SimpleAPI\\" : ""
-        }
-    },
-    "require": {
-        "php":">=5.3.0"
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "autoload": {
+    "psr-4": {
+      "Timon\\SimpleAPI\\": ""
     }
+  },
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "require-dev": {
+    "kint-php/kint": "^2.2"
+  }
 }
