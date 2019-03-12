@@ -90,7 +90,6 @@ class Loader {
 		);
 
 		return $hooks;
-
 	}
 
 	/**

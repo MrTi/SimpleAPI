@@ -11,7 +11,8 @@
 namespace Timon\SimpleAPI\lib;
 
 
-class PostTypeCreator {
+class PostTypeCreator
+{
 	private static $labels;
 	private static $args;
 	private static $machineNames;
@@ -19,48 +20,47 @@ class PostTypeCreator {
 	/**
 	 * Added post type args to array for registering
 	 *
-	 * @param string $machineName - name of PostType
-	 * @param string $text_domain - plugin textdomain
-	 * @param string $singularName - singular name for labels
-	 * @param string $pluralName - plural name for labels
+	 * @param string $machineName      - name of PostType
+	 * @param string $singularName     - singular name for labels
+	 * @param string $pluralName       - plural name for labels
 	 * @param string $custom_base_link - custom slug for rewrite
 	 */
-	public static function addPostType($machineName, $text_domain, $singularName, $pluralName, $custom_base_link = '')
+	public static function addPostType($machineName, $singularName, $pluralName, $custom_base_link = '')
 	{
-		self::$labels[ $machineName ] = array(
-			'name'                  => _x( $pluralName, 'Post Type General Name', $text_domain ),
-			'singular_name'         => _x( $singularName, 'Post Type Singular Name', $text_domain ),
-			'menu_name'             => __( $singularName, $text_domain),
-			'name_admin_bar'        => __( $singularName, $text_domain ),
-			'archives'              => __( $singularName . ' Archives', $text_domain),
-			'parent_item_colon'     => __( 'Parent ' . $singularName . ':', $text_domain ),
-			'all_items'             => __( 'All ' . $pluralName, $text_domain ),
-			'add_new_item'          => __( 'Add New ' . $singularName . '', $text_domain ),
-			'add_new'               => __( 'Add New', $text_domain ),
-			'new_item'              => __( 'New ' . $singularName, $text_domain ),
-			'edit_item'             => __( 'Edit ' . $singularName, $text_domain ),
-			'update_item'           => __( 'Update ' . $singularName, $text_domain ),
-			'view_item'             => __( 'View ' . $singularName, $text_domain ),
-			'search_items'          => __( 'Search ' . $singularName, $text_domain ),
-			'not_found'             => __( 'Not found', $text_domain ),
-			'not_found_in_trash'    => __( 'Not found in Trash', $text_domain ),
-			'featured_image'        => __( 'Featured Image', $text_domain ),
-			'set_featured_image'    => __( 'Set featured image', $text_domain ),
-			'remove_featured_image' => __( 'Remove featured image', $text_domain ),
-			'use_featured_image'    => __( 'Use as featured image', $text_domain ),
-			'insert_into_item'      => __( 'Insert into item', $text_domain ),
-			'uploaded_to_this_item' => __( 'Uploaded to this ' . $singularName, $text_domain ),
-			'items_list'            => __( $singularName . ' list', $text_domain ),
-			'items_list_navigation' => __( $singularName . ' list navigation', $text_domain ),
-			'filter_items_list'     => __( 'Filter ' . $singularName . ' list', $text_domain ),
-		);
+		self::$labels[$machineName] = [
+			'name'                  => $pluralName,
+			'singular_name'         => $singularName,
+			'menu_name'             => $singularName,
+			'name_admin_bar'        => $singularName,
+			'archives'              => sprintf(_x('%s Archives', 'Post Type Creator'), $singularName),
+			'parent_item_colon'     => sprintf(_x('Parent %s:', 'Post Type Creator'), $singularName),
+			'all_items'             => sprintf(_x('All %s', 'Post Type Creator'), $pluralName),
+			'add_new_item'          => sprintf(_x('Add New %s', 'Post Type Creator'), $singularName),
+			'add_new'               => sprintf(_x('Add New %s', 'Post Type Creator'), $singularName),
+			'new_item'              => sprintf(_x('New %s', 'Post Type Creator'), $singularName),
+			'edit_item'             => sprintf(_x('Edit %s', 'Post Type Creator'), $singularName),
+			'update_item'           => sprintf(_x('Update %s', 'Post Type Creator'), $singularName),
+			'view_item'             => sprintf(_x('View %s', 'Post Type Creator'), $singularName),
+			'search_items'          => sprintf(_x('Search %s', 'Post Type Creator'), $singularName),
+			'not_found'             => _x('Not found', 'Post Type Creator'),
+			'not_found_in_trash'    => _x('Not found in Trash', 'Post Type Creator'),
+			'featured_image'        => _x('Featured Image', 'Post Type Creator'),
+			'set_featured_image'    => _x('Set featured image', 'Post Type Creator'),
+			'remove_featured_image' => _x('Remove featured image', 'Post Type Creator'),
+			'use_featured_image'    => _x('Use as featured image', 'Post Type Creator'),
+			'insert_into_item'      => _x('Insert into item', 'Post Type Creator'),
+			'uploaded_to_this_item' => sprintf(_x('Uploaded to this %s', 'Post Type Creator'), $singularName),
+			'items_list'            => sprintf(_x('%s list', 'Post Type Creator'), $singularName),
+			'items_list_navigation' => sprintf(_x('%s list navigation', 'Post Type Creator'), $singularName),
+			'filter_items_list'     => sprintf(_x('Filter %s list', 'Post Type Creator'), $singularName),
+		];
 
-		$args = array(
-			'label'               => __( $singularName, $text_domain ),
-			'description'         => __( $singularName, $text_domain ),
-			'labels'              => self::$labels[ $machineName ],
-			'supports'            => array('title'),
-			'taxonomies'          => array(),
+		$args = [
+			'label'               => $singularName,
+			'description'         => $singularName,
+			'labels'              => self::$labels[$machineName],
+			'supports'            => ['title'],
+			'taxonomies'          => [],
 			'hierarchical'        => TRUE,
 			'public'              => TRUE,
 			'show_ui'             => TRUE,
@@ -73,7 +73,7 @@ class PostTypeCreator {
 			'exclude_from_search' => FALSE,
 			'publicly_queryable'  => TRUE,
 			'capability_type'     => 'post',
-		);
+		];
 
 		if ($custom_base_link !== '') {
 			$args['rewrite'] = [
@@ -81,7 +81,7 @@ class PostTypeCreator {
 			];
 		}
 
-		self::$args[ $machineName ] = $args;
+		self::$args[$machineName] = $args;
 
 		self::$machineNames[] = $machineName;
 	}
@@ -89,37 +89,37 @@ class PostTypeCreator {
 	/**
 	 * Change args for some PostType
 	 *
-	 * @param array  $args - args that should be changed
+	 * @param array  $args        - args that should be changed
 	 * @param string $machineName - name of PostType
 	 */
-	public static function setArgs(array $args, $machineName )
+	public static function setArgs(array $args, $machineName)
 	{
-		self::$args[ $machineName ] = array_merge( self::$args[ $machineName ], $args );
+		self::$args[$machineName] = array_merge(self::$args[$machineName], $args);
 	}
 
 	/**
 	 * Change capability_type of some PostType
 	 *
-	 * @param string $type - new capability_type
+	 * @param string $type        - new capability_type
 	 * @param string $machineName - name of PostType
 	 */
-	public static function setType( $type, $machineName )
+	public static function setType($type, $machineName)
 	{
 		$args = [
 			'capability_type' => $type
 		];
-		self::$args[ $machineName ] =  array_merge( self::$args[ $machineName ], $args );
+		self::setArgs($args, $machineName);
 	}
 
 	/**
 	 * Added Taxonomy for PostType
 	 *
-	 * @param string $taxonomy - name of Taxonomy
+	 * @param string $taxonomy    - name of Taxonomy
 	 * @param string $machineName - name of PostType
 	 */
-	public static function addTaxonomy( $taxonomy, $machineName )
+	public static function addTaxonomy($taxonomy, $machineName)
 	{
-		$curtax = self::$args[ $machineName ]['taxonomies'];
+		$curtax = self::$args[$machineName]['taxonomies'];
 		$taxonomies = array();
 		if (!empty($curtax)) {
 			if (is_array($curtax)) {
@@ -136,18 +136,23 @@ class PostTypeCreator {
 		$args = [
 			'taxonomies' => $taxonomies
 		];
-		self::$args[ $machineName ] =  array_merge( self::$args[ $machineName ], $args );
+		self::setArgs($args, $machineName);
 	}
 
 	/**
 	 * Changes labels for PostType
 	 *
-	 * @param array $labels - new labels
+	 * @param array  $labels      - new labels
 	 * @param string $machineName - name of PostType
 	 */
-	public static function setLabels(array $labels, $machineName )
+	public static function setLabels(array $labels, $machineName)
 	{
-		self::$labels[ $machineName ] = array_merge( self::$labels[ $machineName ], $labels );
+		self::$labels[$machineName] = array_merge(self::$labels[$machineName], $labels);
+
+		$args = [
+			'label' => self::$labels[$machineName]
+		];
+		self::setArgs($args, $machineName);
 	}
 
 	/**
@@ -155,10 +160,18 @@ class PostTypeCreator {
 	 */
 	public static function registerPostTypes()
 	{
-		if (!empty( self::$machineNames)) {
-			foreach ( self::$machineNames as $machineName ) {
-				register_post_type( $machineName, self::$args[ $machineName ] );
+		if (!empty(self::$machineNames)) {
+			foreach (self::$machineNames as $machineName) {
+				register_post_type($machineName, self::$args[$machineName]);
 			}
 		}
+	}
+
+	/**
+	 * Added function for registered post types to init action
+	 */
+	public static function addToInit()
+	{
+		add_action('init', [self::class, 'registerPostTypes']);
 	}
 }

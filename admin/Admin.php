@@ -12,13 +12,33 @@ use Timon\SimpleAPI\lib\TaxonomyCreator;
 
 class Admin {
 
+	/**
+	 * Holds class single instance
+	 * @var null
+	 */
+	public static $_instance = null;
+
 	public $settingPage;
+
+	/**
+	 * Get instance
+	 * @return Admin|null
+	 */
+	public static function getInstance() {
+
+		if ( null == static::$_instance ) {
+			static::$_instance = new self();
+		}
+
+		return static::$_instance;
+	}
+
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
 	 */
-	public function __construct()
+	private function __construct()
 	{
 		Access::init();
 		Method::init();
@@ -37,7 +57,7 @@ class Admin {
 	 * Register the stylesheets for the admin area, etc.
 	 *
 	 */
-	public function admin_init()
+	public function adminInit()
 	{
 		wp_register_style(SAPI_PLUGIN_BASENAME, SAPI_PLUGIN_ADMIN_URL . 'css/simple-api-admin.css', array(), SAPI_VERSION, 'all' );
 
@@ -48,7 +68,7 @@ class Admin {
 	 * Enqueue the stylesheets for the admin area.
 	 *
 	 */
-	public function enqueue_styles()
+	public function enqueueStyles()
 	{
 		wp_enqueue_style(SAPI_PLUGIN_BASENAME);
 	}
@@ -57,7 +77,7 @@ class Admin {
 	 * Enqueue the JavaScript for the admin area.
 	 *
 	 */
-	public function enqueue_scripts()
+	public function enqueueScripts()
 	{
 		if( !wp_script_is( 'jquery' ) )
 		{
@@ -74,7 +94,7 @@ class Admin {
 	/**
 	 * Added new points to admin menu
 	 */
-	public function init_menu()
+	public function initMenu()
 	{
 		global $submenu;
 		add_menu_page( __('Simple API', SAPI_TEXT_DOMAIN), __('Simple API', SAPI_TEXT_DOMAIN), 'manage_options', 'edit.php?post_type=' . Access::$MACHINE_NAME, null, 'dashicons-admin-network' );
@@ -91,7 +111,7 @@ class Admin {
 	 * @param $parent_file
 	 * @return string
 	 */
-	public function recipe_tax_menu_correction($parent_file)
+	public function recipeTaxMenuCorrection($parent_file)
 	{
 		global $submenu_file;
 		global $current_screen;

@@ -49,17 +49,17 @@ class SimpleAPI {
 	 */
 	protected function initAdminHooks()
 	{
-		$plugin_admin = new Admin();
+		$admin = Admin::getInstance();
 
-		$this->getLoader()->add_action( 'init', $plugin_admin, 'init' );
+		$this->getLoader()->add_action( 'init', $admin, 'init' );
 
-		$this->getLoader()->add_action( 'admin_init', $plugin_admin, 'admin_init' );
+		$this->getLoader()->add_action( 'admin_init', $admin, 'adminInit' );
 
-		$this->getLoader()->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->getLoader()->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->getLoader()->add_action( 'admin_enqueue_scripts', $admin, 'enqueueStyles' );
+		$this->getLoader()->add_action( 'admin_enqueue_scripts', $admin, 'enqueueScripts' );
 
-		$this->getLoader()->add_action( 'admin_menu', $plugin_admin, 'init_menu' );
-		$this->getLoader()->add_filter( 'parent_file', $plugin_admin, 'recipe_tax_menu_correction' );
+		$this->getLoader()->add_action( 'admin_menu', $admin, 'initMenu' );
+		$this->getLoader()->add_filter( 'parent_file', $admin, 'recipeTaxMenuCorrection' );
 	}
 
 	/**
@@ -67,12 +67,12 @@ class SimpleAPI {
 	 */
 	protected function initFrontendHooks()
 	{
-		$plugin_frontend = new Frontend();
+		$frontend = Frontend::getInstance();
 
-		$this->getLoader()->add_action( 'init', $plugin_frontend, 'init' );
+		$this->getLoader()->add_action( 'init', $frontend, 'init' );
 
-		$this->getLoader()->add_filter( 'query_vars', $plugin_frontend, 'add_query_vars' );
-		$this->getLoader()->add_action( 'parse_request', $plugin_frontend, 'parse_request_callback' );
+		$this->getLoader()->add_filter( 'query_vars', $frontend, 'addQueryVars' );
+		$this->getLoader()->add_action( 'parse_request', $frontend, 'parseRequestCallback' );
 
 	}
 

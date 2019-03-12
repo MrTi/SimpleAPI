@@ -298,7 +298,7 @@ class Method {
 	 */
 	public static function init()
 	{
-		PostTypeCreator::addPostType(Method::$MACHINE_NAME, SAPI_TEXT_DOMAIN, 'Method', 'Methods');
+		PostTypeCreator::addPostType(Method::$MACHINE_NAME, 'Method', 'Methods');
 
 		PostTypeCreator::setArgs(array(
 			'show_in_menu'  =>false,

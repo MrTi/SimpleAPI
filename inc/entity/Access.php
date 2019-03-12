@@ -246,7 +246,7 @@ class Access {
 	 */
 	public static function init()
 	{
-		PostTypeCreator::addPostType(Access::$MACHINE_NAME, SAPI_TEXT_DOMAIN, 'Access', 'Accesses');
+		PostTypeCreator::addPostType(Access::$MACHINE_NAME, 'Access', 'Accesses');
 
 		PostTypeCreator::setArgs(array(
 			'supports'      => ['title','editor'],

@@ -16,7 +16,26 @@ use Timon\SimpleAPI\inc\entity\Method;
 
 class Frontend {
 
-	public function __construct(){}
+	/**
+	 * Holds class single instance
+	 * @var null
+	 */
+	public static $_instance = null;
+
+	/**
+	 * Get instance
+	 * @return Frontend|null
+	 */
+	public static function getInstance() {
+
+		if ( null == static::$_instance ) {
+			static::$_instance = new self();
+		}
+
+		return static::$_instance;
+	}
+
+	private function __construct(){}
 
 	/**
 	 * Fired with action init.
@@ -35,7 +54,7 @@ class Frontend {
 	 * @param $vars  - array of existing query vars
 	 * @return array - new query vars array
 	 */
-	public function add_query_vars($vars)
+	public function addQueryVars($vars)
 	{
 		$vars[] = '__sapi';
 		$vars[] = 'method';
@@ -47,7 +66,7 @@ class Frontend {
 	 * Parse query vars take the method from request and run the filter.
 	 * Print json response.
 	 */
-	public function parse_request_callback()
+	public function parseRequestCallback()
 	{
 		global $wp;
 
